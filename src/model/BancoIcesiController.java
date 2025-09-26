@@ -1,14 +1,15 @@
 package model;
 
 public class BancoIcesiController {
+    private Cliente [] clientes;
 
      /*
      * ATENCION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * Agregue los atributos (relaciones) necesarios para satisfacer los requerimientos.
      */
 
-    public BancoIcesiController(){
-
+    public BancoIcesiController(int size){
+        clientes = new Cliente[size];
     }
 
     /*
@@ -19,22 +20,38 @@ public class BancoIcesiController {
      *      Agregue los parametros y retorno que sean pertinentes.
      *      Agregue la logica necesaria (instrucciones) para satisfacer los requerimientos.
      */
-    public void agregarCuentaCliente() {
+    
 
+     public void agregarCuentaCliente(String nombre, String cedula, String nomBanco, TipoCuenta tipoCuenta, double saldo){ 
+       Cliente cliente = buscarCliente(cedula);
+       if (cliente != null) {
+           cliente.addCuenta(nomBanco, tipoCuenta, saldo);
+       } 
     }
 
-   
+
     public void depositarDineroCuenta() {
+    
 
-    }
+        }
+      
+    
 
     
-    public void retirarDineroCuenta() {
+    public void retirarDineroCuenta(String cedula, int indexCuenta, double monto) {
+       Cliente cliente = buscarCliente(cedula);
+         if (cliente != null) {
+              Cuenta[] cuentas = cliente.getCuentasList();
+              if (indexCuenta >= 0 && indexCuenta < cuentas.length && cuentas[indexCuenta] != null) {
+                cuentas[indexCuenta].retirarDineroCuenta(monto);
+              }
+        }
+    
 
     }
 
-    public void getClienteList() {
-
+    public Cliente[] getClienteList() {
+        return clientes;
     }
 
    
